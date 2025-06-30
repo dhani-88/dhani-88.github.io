@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Anda - Linktree Bergaya GitHub</title>
+    <title>Muhammad Dhani</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -105,6 +105,7 @@
                     <button id="save-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg hidden">Simpan</button>
                     <button id="cancel-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg hidden">Batal</button>
                 </div>
+                <p id="save-message" class="text-green-400 text-sm mt-4 hidden">Perubahan disimpan! Harap unduh dan commit file data.json ke GitHub Anda.</p>
             </section>
 
             <!-- Links Section -->
@@ -137,15 +138,10 @@
                 </div>
             </section>
 
-            <!-- Data Management Section (for GitHub Pages manual sync) -->
+            <!-- Data Management Section (for GitHub Pages manual sync) - Import only -->
             <section id="data-management-section" class="github-card p-6 hidden">
-                <h2 class="text-2xl font-semibold text-white mb-6 text-center">Manajemen Data</h2>
+                <h2 class="text-2xl font-semibold text-white mb-6 text-center">Impor Data</h2>
                 <div class="space-y-4">
-                    <div>
-                        <button id="export-data-button" class="github-button w-full py-2 rounded-md font-semibold text-base">Ekspor Data (JSON)</button>
-                        <textarea id="exported-data-output" class="w-full h-32 mt-2 p-2 rounded-md border border-gray-600 editable-field text-sm font-mono hidden" readonly></textarea>
-                        <button id="copy-exported-data-button" class="github-button w-full py-2 rounded-md font-semibold text-base mt-2 hidden">Salin Data Ekspor</button>
-                    </div>
                     <div>
                         <label for="import-data-input" class="block text-sm font-medium text-gray-400 mb-1">Impor Data (JSON)</label>
                         <textarea id="import-data-input" placeholder="Paste data JSON di sini" class="w-full h-32 p-2 rounded-md border border-gray-600 editable-field text-sm font-mono"></textarea>
@@ -197,6 +193,7 @@
         const editButton = document.getElementById('edit-button');
         const saveButton = document.getElementById('save-button');
         const cancelButton = document.getElementById('cancel-button');
+        const saveMessage = document.getElementById('save-message'); // New element for save message
 
         const linksContainer = document.getElementById('links-container');
         const addLinkForm = document.getElementById('add-link-form');
@@ -206,9 +203,7 @@
         const addLinkButton = document.getElementById('add-link-button');
 
         const dataManagementSection = document.getElementById('data-management-section');
-        const exportDataButton = document.getElementById('export-data-button');
-        const exportedDataOutput = document.getElementById('exported-data-output');
-        const copyExportedDataButton = document.getElementById('copy-exported-data-button');
+        // Removed export-related elements
         const importDataInput = document.getElementById('import-data-input');
         const importDataButton = document.getElementById('import-data-button');
         const importMessage = document.getElementById('import-message');
@@ -408,8 +403,7 @@
             cancelButton.classList.add('hidden');
             addLinkForm.classList.add('hidden'); // Ensure add link form is hidden
             dataManagementSection.classList.add('hidden'); // Hide data management section
-            exportedDataOutput.classList.add('hidden'); // Hide output when not editing
-            copyExportedDataButton.classList.add('hidden'); // Hide copy button
+            saveMessage.classList.add('hidden'); // Hide save message
         }
 
         // Set UI to edit mode
@@ -422,6 +416,25 @@
             cancelButton.classList.remove('hidden');
             addLinkForm.classList.remove('hidden'); // Show add link form
             dataManagementSection.classList.remove('hidden'); // Show data management section
+            saveMessage.classList.add('hidden'); // Hide save message when entering edit mode
+        }
+
+        // Function to download data.json
+        function downloadDataJson() {
+            const dataToExport = {
+                profileData: currentProfileData,
+                linksData: currentLinks
+            };
+            const jsonString = JSON.stringify(dataToExport, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         // --- Event Listeners ---
@@ -464,8 +477,13 @@
             currentProfileData.username = profileUsernameInput.value;
             currentProfileData.bio = profileBioInput.value;
 
-            saveData(); // Save updated data
-            setDisplayMode(); // Switch back to display mode
+            saveData(); // Save updated data to localStorage
+            downloadDataJson(); // Trigger download of data.json
+
+            saveMessage.classList.remove('hidden'); // Show save message
+            setTimeout(() => {
+                setDisplayMode(); // Switch back to display mode after a short delay
+            }, 2000); // Give user time to see message and download
         });
 
         // Cancel button click
@@ -489,28 +507,6 @@
             } else {
                 console.error("Teks dan URL tautan tidak boleh kosong.");
             }
-        });
-
-        // Event listener for Export Data button
-        exportDataButton.addEventListener('click', () => {
-            const dataToExport = {
-                profileData: currentProfileData,
-                linksData: currentLinks
-            };
-            exportedDataOutput.value = JSON.stringify(dataToExport, null, 2); // Pretty print JSON
-            exportedDataOutput.classList.remove('hidden');
-            copyExportedDataButton.classList.remove('hidden');
-        });
-
-        // Event listener for Copy Exported Data button
-        copyExportedDataButton.addEventListener('click', () => {
-            exportedDataOutput.select();
-            document.execCommand('copy');
-            const originalText = copyExportedDataButton.textContent;
-            copyExportedDataButton.textContent = 'Disalin!';
-            setTimeout(() => {
-                copyExportedDataButton.textContent = originalText;
-            }, 1500);
         });
 
         // Event listener for Import Data button
