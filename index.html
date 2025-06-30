@@ -42,70 +42,138 @@
         .text-mono {
             font-family: 'JetBrains Mono', monospace;
         }
+        .editable-field {
+            background-color: #0d1117;
+            border-color: #30363d;
+            color: #c9d1d9;
+        }
+        .editable-field:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 1px #58a6ff;
+        }
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #161b22;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10">
 
     <div class="container px-4 space-y-8">
 
-        <!-- Profile Section -->
-        <section class="github-card p-8 text-center">
-            <img src="https://placehold.co/150x150/58a6ff/ffffff?text=Your+Photo" alt="Foto Profil Anda" class="rounded-full w-32 h-32 mx-auto mb-4 border-2 border-indigo-500">
-            <h1 class="text-3xl font-bold text-white mb-2">Muhammad Dhani</h1>
-            <p class="text-gray-400 text-lg mb-4 text-mono">@username_github</p>
-            <p class="text-gray-300 leading-relaxed">
-                Graphic Designer / Web Developer / Event Management student at Multimedia Nusantara Polytechnic.
-                
-            </p>
-        </section>
+        <!-- Main Content (Always visible) -->
+        <div id="main-content" class="w-full space-y-8">
+            <!-- Profile Section -->
+            <section class="github-card p-8 text-center">
+                <img id="profile-photo" src="https://placehold.co/150x150/58a6ff/ffffff?text=Your+Photo" alt="Foto Profil Anda" class="rounded-full w-32 h-32 mx-auto mb-4 border-2 border-indigo-500">
+                <input type="text" id="profile-photo-url-input" placeholder="URL Foto Profil" class="w-full px-2 py-1 rounded-md border border-gray-600 editable-field text-sm mb-2 hidden">
 
-        <!-- Links Section -->
-        <section class="github-card p-6">
-            <h2 class="text-2xl font-semibold text-white mb-6 text-center">Tautan Saya</h2>
-            <div class="space-y-4">
-                <!-- Example Link 1 -->
-                <a href="https://github.com/dhani-88" target="_blank" class="github-button flex items-center justify-center w-full py-3 rounded-md font-semibold text-lg hover:no-underline">
-                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.475.087.687-.206.687-.458 0-.225-.007-.975-.011-1.912-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.529 2.34 1.089 2.91.833.091-.647.349-1.089.635-1.338-2.22-.253-4.555-1.116-4.555-4.949 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.701.113 2.503.332 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.099 2.65.64.698 1.028 1.591 1.028 2.682 0 3.842-2.339 4.69-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .254.211.548.694.456C20.146 20.19 23 16.437 23 12.017 23 6.484 18.522 2 13 2h-1z" clip-rule="evenodd"></path>
-                    </svg>
-                    GitHub
-                </a>
-                <!-- Example Link 2 -->
-                <a href="https://linkedin.com/in/muhammaddhani" target="_blank" class="github-button flex items-center justify-center w-full py-3 rounded-md font-semibold text-lg hover:no-underline">
-                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.325-.028-3.044-1.852-3.044-1.853 0-2.136 1.445-2.136 2.951v5.662H9.59V9.21h3.413v1.56c.483-.927 1.637-1.802 3.37-1.802 3.623 0 4.285 2.365 4.285 5.492v6.027zM7.92 7.126c-1.564 0-2.56-1.01-2.56-2.347S6.356 2.48 7.92 2.48c1.563 0 2.56 1.01 2.56 2.346s-.997 2.3-.997 2.347zM4.365 20.452H7.92V9.21H4.365v11.242z" fill-rule="evenodd"></path>
-                    </svg>
-                    LinkedIn
-                </a>
-                <!-- Example Link 3 -->
-                <a href="https://muhammaddhani.id" target="_blank" class="github-button flex items-center justify-center w-full py-3 rounded-md font-semibold text-lg hover:no-underline">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                    </svg>
-                    My Website
-                </a>
-                <!-- Example Link 4 -->
-                <a href="https://www.instagram.com/_dhnnn1/" target="_blank" class="github-button flex items-center justify-center w-full py-3 rounded-md font-semibold text-lg hover:no-underline">
-                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.46 6c-.77.34-1.6.56-2.46.66.89-.53 1.57-1.37 1.89-2.37-.83.49-1.76.85-2.75 1.04-.79-.84-1.92-1.37-3.17-1.37-2.39 0-4.34 1.95-4.34 4.34 0 .34.04.67.11.98-3.6-.18-6.8-1.9-8.94-4.54-.37.64-.58 1.39-.58 2.19 0 1.5.76 2.83 1.92 3.61-.7-.02-1.35-.21-1.92-.53v.05c0 2.1 1.49 3.85 3.47 4.24-.36.1-.74.15-1.13.15-.28 0-.55-.03-.81-.08.55 1.72 2.15 2.97 4.05 3.01-1.48 1.16-3.35 1.85-5.39 1.85-.35 0-.69-.02-1.03-.06C4.6 20.09 6.8 20.7 9.17 20.7c10.41 0 16.12-8.62 16.12-16.12 0-.24-.01-.48-.02-.72.83-.6 1.55-1.35 2.12-2.2Z"/>
-                    </svg>
-                    Instagram
-                </a>
-                <!-- Add more links as needed -->
-                <a href="mailto:dhani@muhammaddhani.id" class="github-button flex items-center justify-center w-full py-3 rounded-md font-semibold text-lg hover:no-underline">
-                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V18a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                    </svg>
-                    Email
-                </a>
+                <h1 id="profile-name" class="text-3xl font-bold text-white mb-2">Nama Anda</h1>
+                <input type="text" id="profile-name-input" placeholder="Nama Anda" class="w-full px-2 py-1 rounded-md border border-gray-600 editable-field text-xl mb-2 hidden">
+
+                <p id="profile-username" class="text-gray-400 text-lg mb-4 text-mono">@username_github</p>
+                <input type="text" id="profile-username-input" placeholder="Username GitHub" class="w-full px-2 py-1 rounded-md border border-gray-600 editable-field text-lg mb-4 hidden">
+
+                <p id="profile-bio" class="text-gray-300 leading-relaxed">
+                    Pengembang web | Mahasiswa | Pecinta Open Source.
+                    Membangun hal-hal keren dengan kode.
+                </p>
+                <textarea id="profile-bio-input" placeholder="Bio Anda" rows="3" class="w-full px-2 py-1 rounded-md border border-gray-600 editable-field text-base hidden"></textarea>
+
+                <div class="mt-6 flex justify-center space-x-4">
+                    <button id="edit-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg">Edit Profil</button>
+                    <button id="save-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg hidden">Simpan</button>
+                    <button id="cancel-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg hidden">Batal</button>
+                </div>
+            </section>
+
+            <!-- Links Section -->
+            <section class="github-card p-6">
+                <h2 class="text-2xl font-semibold text-white mb-6 text-center">Tautan Saya</h2>
+                <div id="links-container" class="space-y-4">
+                    <!-- Links will be dynamically loaded/edited here -->
+                </div>
+                <div id="add-link-form" class="mt-6 p-4 border border-gray-700 rounded-md hidden">
+                    <h3 class="text-xl font-semibold text-white mb-4">Tambah Tautan Baru</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label for="new-link-text" class="block text-sm font-medium text-gray-400 mb-1">Teks Tautan</label>
+                            <input type="text" id="new-link-text" placeholder="Nama Tautan (misal: GitHub)"
+                                   class="w-full px-3 py-2 rounded-md border border-gray-600 editable-field text-sm">
+                        </div>
+                        <div>
+                            <label for="new-link-url" class="block text-sm font-medium text-gray-400 mb-1">URL Tautan</label>
+                            <input type="url" id="new-link-url" placeholder="https://contoh.com"
+                                   class="w-full px-3 py-2 rounded-md border border-gray-600 editable-field text-sm">
+                        </div>
+                        <div>
+                            <label for="new-link-svg" class="block text-sm font-medium text-gray-400 mb-1">SVG Icon (Opsional)</label>
+                            <textarea id="new-link-svg" placeholder="Paste SVG path/code here (e.g., <svg ...><path .../></svg>)" rows="2"
+                                      class="w-full px-3 py-2 rounded-md border border-gray-600 editable-field text-sm font-mono"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">Gunakan SVG lengkap atau biarkan kosong untuk ikon default.</p>
+                        </div>
+                        <button id="add-link-button" class="github-button w-full py-2 rounded-md font-semibold text-base">Tambah Tautan</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Management Section (for GitHub Pages manual sync) -->
+            <section id="data-management-section" class="github-card p-6 hidden">
+                <h2 class="text-2xl font-semibold text-white mb-6 text-center">Manajemen Data</h2>
+                <div class="space-y-4">
+                    <div>
+                        <button id="export-data-button" class="github-button w-full py-2 rounded-md font-semibold text-base">Ekspor Data (JSON)</button>
+                        <textarea id="exported-data-output" class="w-full h-32 mt-2 p-2 rounded-md border border-gray-600 editable-field text-sm font-mono hidden" readonly></textarea>
+                        <button id="copy-exported-data-button" class="github-button w-full py-2 rounded-md font-semibold text-base mt-2 hidden">Salin Data Ekspor</button>
+                    </div>
+                    <div>
+                        <label for="import-data-input" class="block text-sm font-medium text-gray-400 mb-1">Impor Data (JSON)</label>
+                        <textarea id="import-data-input" placeholder="Paste data JSON di sini" class="w-full h-32 p-2 rounded-md border border-gray-600 editable-field text-sm font-mono"></textarea>
+                        <button id="import-data-button" class="github-button w-full py-2 rounded-md font-semibold text-base mt-2">Impor Data</button>
+                        <p id="import-message" class="text-red-400 text-sm mt-2 hidden"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GitHub for Students Section (optional, can be removed) -->
+            <section class="github-card p-6 text-center text-sm text-gray-500">
+                <p>Dibuat dengan ❤️ dan didukung oleh <a href="https://education.github.com/pack" target="_blank" class="text-indigo-500 hover:underline">GitHub Student Developer Pack</a>.</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-white mb-4">Masukkan Password</h3>
+            <input type="password" id="modal-password-input" placeholder="Password"
+                   class="w-full px-4 py-2 rounded-md border border-gray-600 editable-field focus:ring-indigo-500 focus:border-indigo-500 mb-4">
+            <p id="modal-password-message" class="text-red-400 text-sm mb-4 hidden">Password salah.</p>
+            <div class="flex justify-center space-x-4">
+                <button id="modal-login-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg">Login</button>
+                <button id="modal-cancel-button" class="github-button px-6 py-2 rounded-md font-semibold text-lg">Batal</button>
             </div>
-        </section>
-
-        <!-- GitHub for Students Section (optional, can be removed) -->
-        <section class="github-card p-6 text-center text-sm text-gray-500">
-            <p>Dibuat dengan ❤️ dan didukung oleh <a href="https://education.github.com/pack" target="_blank" class="text-indigo-500 hover:underline">GitHub Student Developer Pack</a>.</p>
-        </section>
-
+        </div>
     </div>
 
     <!-- Footer (simple, can be expanded) -->
@@ -113,5 +181,370 @@
         <p>&copy; 2024 Nama Anda. Semua Hak Dilindungi.</p>
     </footer>
 
+    <script>
+        // --- DOM Elements ---
+        const mainContent = document.getElementById('main-content');
+
+        const profilePhoto = document.getElementById('profile-photo');
+        const profilePhotoUrlInput = document.getElementById('profile-photo-url-input');
+        const profileName = document.getElementById('profile-name');
+        const profileNameInput = document.getElementById('profile-name-input');
+        const profileUsername = document.getElementById('profile-username');
+        const profileUsernameInput = document.getElementById('profile-username-input');
+        const profileBio = document.getElementById('profile-bio');
+        const profileBioInput = document.getElementById('profile-bio-input');
+
+        const editButton = document.getElementById('edit-button');
+        const saveButton = document.getElementById('save-button');
+        const cancelButton = document.getElementById('cancel-button');
+
+        const linksContainer = document.getElementById('links-container');
+        const addLinkForm = document.getElementById('add-link-form');
+        const newLinkText = document.getElementById('new-link-text');
+        const newLinkUrl = document.getElementById('new-link-url');
+        const newLinkSvg = document.getElementById('new-link-svg');
+        const addLinkButton = document.getElementById('add-link-button');
+
+        const dataManagementSection = document.getElementById('data-management-section');
+        const exportDataButton = document.getElementById('export-data-button');
+        const exportedDataOutput = document.getElementById('exported-data-output');
+        const copyExportedDataButton = document.getElementById('copy-exported-data-button');
+        const importDataInput = document.getElementById('import-data-input');
+        const importDataButton = document.getElementById('import-data-button');
+        const importMessage = document.getElementById('import-message');
+
+        // Modal elements
+        const passwordModal = document.getElementById('password-modal');
+        const modalPasswordInput = document.getElementById('modal-password-input');
+        const modalLoginButton = document.getElementById('modal-login-button');
+        const modalCancelButton = document.getElementById('modal-cancel-button');
+        const modalPasswordMessage = document.getElementById('modal-password-message');
+
+
+        // --- Data Storage (Client-side simulation) ---
+        // Default profile data and links
+        const defaultProfileData = {
+            photoUrl: "https://placehold.co/150x150/58a6ff/ffffff?text=Your+Photo",
+            name: "Nama Anda",
+            username: "@username_github",
+            bio: "Pengembang web | Mahasiswa | Pecinta Open Source.\nMembangun hal-hal keren dengan kode."
+        };
+
+        const defaultLinks = [
+            { text: "GitHub", url: "https://github.com/yourusername", svg: '<path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.475.087.687-.206.687-.458 0-.225-.007-.975-.011-1.912-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.529 2.34 1.089 2.91.833.091-.647.349-1.089.635-1.338-2.22-.253-4.555-1.116-4.555-4.949 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.701.113 2.503.332 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.099 2.65.64.698 1.028 1.591 1.028 2.682 0 3.842-2.339 4.69-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .254.211.548.694.456C20.146 20.19 23 16.437 23 12.017 23 6.484 18.522 2 13 2h-1z" clip-rule="evenodd"></path>' },
+            { text: "LinkedIn", url: "https://linkedin.com/in/yourusername", svg: '<path d="M20.447 20.452h-3.554v-5.569c0-1.325-.028-3.044-1.852-3.044-1.853 0-2.136 1.445-2.136 2.951v5.662H9.59V9.21h3.413v1.56c.483-.927 1.637-1.802 3.37-1.802 3.623 0 4.285 2.365 4.285 5.492v6.027zM7.92 7.126c-1.564 0-2.56-1.01-2.56-2.347S6.356 2.48 7.92 2.48c1.563 0 2.56 1.01 2.56 2.346s-.997 2.3-.997 2.347zM4.365 20.452H7.92V9.21H4.365v11.242z" fill-rule="evenodd"></path>' },
+            { text: "Portofolio Online", url: "https://yourportfolio.com", svg: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>' },
+            { text: "Instagram", url: "https://instagram.com/yourusername", svg: '<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.251-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.646-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072C3.104.247 1.528 1.823 1.38 5.093.322 8.373.308 8.781.308 12s.014 3.627.072 4.907c.148 3.27 1.724 4.846 4.994 4.994 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c3.27-.148 4.846-1.724 4.994-4.994.058-1.28.072-1.688.072-4.947s-.014-3.627-.072-4.907c-.148-3.27-1.724-4.846-4.994-4.994C15.627.014 15.219 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 2.162a4 4 0 110 8 4 4 0 010-8zm6.406-3.838a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/>' },
+            { text: "Email", url: "mailto:your.email@example.com", svg: '<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V18a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>' }
+        ];
+
+        let currentProfileData = {};
+        let currentLinks = [];
+        let isEditing = false; // Track if currently in edit mode
+
+        // --- Functions ---
+
+        // Load data from data.json or localStorage or use defaults
+        async function loadData() {
+            try {
+                // Try fetching from data.json first (for GitHub Pages persistence)
+                const response = await fetch('data.json');
+                if (response.ok) {
+                    const githubData = await response.json();
+                    currentProfileData = githubData.profileData || defaultProfileData;
+                    currentLinks = githubData.linksData || defaultLinks;
+                    console.log("Data loaded from data.json");
+                    return; // Data loaded from GitHub, no need to check localStorage
+                }
+            } catch (e) {
+                console.warn("Could not load data from data.json, falling back to localStorage or defaults:", e);
+            }
+
+            // Fallback to localStorage
+            try {
+                const storedProfile = localStorage.getItem('profileData');
+                currentProfileData = storedProfile ? JSON.parse(storedProfile) : defaultProfileData;
+
+                const storedLinks = localStorage.getItem('linksData');
+                currentLinks = storedLinks ? JSON.parse(storedLinks) : defaultLinks;
+                console.log("Data loaded from localStorage.");
+            } catch (e) {
+                console.error("Error loading data from localStorage, using default data:", e);
+                // Fallback to defaults if localStorage is corrupted
+                currentProfileData = defaultProfileData;
+                currentLinks = defaultLinks;
+            }
+        }
+
+        // Save data to localStorage (for in-browser persistence)
+        function saveData() {
+            try {
+                localStorage.setItem('profileData', JSON.stringify(currentProfileData));
+                localStorage.setItem('linksData', JSON.stringify(currentLinks));
+            } catch (e) {
+                console.error("Error saving data to localStorage:", e);
+            }
+        }
+
+        // Render profile data to display mode
+        function renderProfile() {
+            profilePhoto.src = currentProfileData.photoUrl;
+            profileName.textContent = currentProfileData.name;
+            profileUsername.textContent = currentProfileData.username;
+            profileBio.textContent = currentProfileData.bio;
+
+            // Hide input fields
+            profilePhotoUrlInput.classList.add('hidden');
+            profileNameInput.classList.add('hidden');
+            profileUsernameInput.classList.add('hidden');
+            profileBioInput.classList.add('hidden');
+
+            // Show display elements
+            profilePhoto.classList.remove('hidden');
+            profileName.classList.remove('hidden');
+            profileUsername.classList.remove('hidden');
+            profileBio.classList.remove('hidden');
+        }
+
+        // Render links to display mode
+        function renderLinks() {
+            linksContainer.innerHTML = ''; // Clear existing links
+            currentLinks.forEach((link, index) => {
+                const linkElement = document.createElement('a');
+                linkElement.href = link.url;
+                linkElement.target = "_blank";
+                linkElement.classList.add('github-button', 'flex', 'items-center', 'justify-center', 'w-full', 'py-3', 'rounded-md', 'font-semibold', 'text-lg', 'hover:no-underline');
+
+                // Use provided SVG or a default placeholder if none
+                const svgContent = link.svg ? link.svg : '<path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.475.087.687-.206.687-.458 0-.225-.007-.975-.011-1.912-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.618.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.529 2.34 1.089 2.91.833.091-.647.349-1.089.635-1.338-2.22-.253-4.555-1.116-4.555-4.949 0-1.091.39-1.984 1.029-2.682-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.701.113 2.503.332 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.202 2.398.099 2.65.64.698 1.028 1.591 1.028 2.682 0 3.842-2.339 4.69-4.566 4.942.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .254.211.548.694.456C20.146 20.19 23 16.437 23 12.017 23 6.484 18.522 2 13 2h-1z" clip-rule="evenodd"></path>';
+                linkElement.innerHTML = `
+                    <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        ${svgContent}
+                    </svg>
+                    <span>${link.text}</span>
+                `;
+                linksContainer.appendChild(linkElement);
+            });
+            addLinkForm.classList.add('hidden'); // Hide add link form in display mode
+        }
+
+        // Render profile data to edit mode
+        function renderProfileEditMode() {
+            profilePhotoUrlInput.value = currentProfileData.photoUrl;
+            profileNameInput.value = currentProfileData.name;
+            profileUsernameInput.value = currentProfileData.username;
+            profileBioInput.value = currentProfileData.bio;
+
+            // Show input fields
+            profilePhotoUrlInput.classList.remove('hidden');
+            profileNameInput.classList.remove('hidden');
+            profileUsernameInput.classList.remove('hidden');
+            profileBioInput.classList.remove('hidden');
+
+            // Hide display elements
+            profilePhoto.classList.add('hidden');
+            profileName.classList.add('hidden');
+            profileUsername.classList.add('hidden');
+            profileBio.classList.add('hidden');
+        }
+
+        // Render links to edit mode
+        function renderLinksEditMode() {
+            linksContainer.innerHTML = ''; // Clear existing links
+            currentLinks.forEach((link, index) => {
+                const linkEditDiv = document.createElement('div');
+                linkEditDiv.classList.add('flex', 'items-center', 'space-x-2', 'p-2', 'bg-gray-800', 'rounded-md');
+
+                // Input for link text
+                const textInput = document.createElement('input');
+                textInput.type = 'text';
+                textInput.value = link.text;
+                textInput.placeholder = 'Teks Tautan';
+                textInput.classList.add('flex-grow', 'px-2', 'py-1', 'rounded-md', 'border', 'border-gray-600', 'editable-field', 'text-sm');
+                textInput.addEventListener('input', (e) => { link.text = e.target.value; });
+
+                // Input for link URL
+                const urlInput = document.createElement('input');
+                urlInput.type = 'url';
+                urlInput.value = link.url;
+                urlInput.placeholder = 'URL Tautan';
+                urlInput.classList.add('flex-grow', 'px-2', 'py-1', 'rounded-md', 'border', 'border-gray-600', 'editable-field', 'text-sm');
+                urlInput.addEventListener('input', (e) => { link.url = e.target.value; });
+
+                // Input for link SVG (simplified for path only or full SVG)
+                const svgInput = document.createElement('textarea');
+                svgInput.value = link.svg || '';
+                svgInput.placeholder = 'SVG Icon (path atau full SVG)';
+                svgInput.rows = 1;
+                svgInput.classList.add('flex-grow', 'px-2', 'py-1', 'rounded-md', 'border', 'border-gray-600', 'editable-field', 'text-sm', 'font-mono');
+                svgInput.addEventListener('input', (e) => { link.svg = e.target.value; });
+
+
+                // Remove button for link
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Hapus';
+                removeButton.classList.add('px-3', 'py-1', 'bg-red-600', 'text-white', 'rounded-md', 'text-sm', 'hover:bg-red-700', 'transition');
+                removeButton.addEventListener('click', () => {
+                    currentLinks.splice(index, 1); // Remove from array
+                    renderLinksEditMode(); // Re-render in edit mode
+                });
+
+                linkEditDiv.appendChild(textInput);
+                linkEditDiv.appendChild(urlInput);
+                linkEditDiv.appendChild(svgInput);
+                linkEditDiv.appendChild(removeButton);
+                linksContainer.appendChild(linkEditDiv);
+            });
+            addLinkForm.classList.remove('hidden'); // Show add link form in edit mode
+        }
+
+        // Set UI to display mode
+        function setDisplayMode() {
+            isEditing = false;
+            renderProfile();
+            renderLinks();
+            editButton.classList.remove('hidden');
+            saveButton.classList.add('hidden');
+            cancelButton.classList.add('hidden');
+            addLinkForm.classList.add('hidden'); // Ensure add link form is hidden
+            dataManagementSection.classList.add('hidden'); // Hide data management section
+            exportedDataOutput.classList.add('hidden'); // Hide output when not editing
+            copyExportedDataButton.classList.add('hidden'); // Hide copy button
+        }
+
+        // Set UI to edit mode
+        function setEditMode() {
+            isEditing = true;
+            renderProfileEditMode();
+            renderLinksEditMode();
+            editButton.classList.add('hidden');
+            saveButton.classList.remove('hidden');
+            cancelButton.classList.remove('hidden');
+            addLinkForm.classList.remove('hidden'); // Show add link form
+            dataManagementSection.classList.remove('hidden'); // Show data management section
+        }
+
+        // --- Event Listeners ---
+
+        // Initial load and display
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadData(); // Await loadData
+            setDisplayMode();
+        });
+
+        // Edit button click - Show password modal
+        editButton.addEventListener('click', () => {
+            passwordModal.classList.remove('hidden');
+            modalPasswordInput.value = ''; // Clear password input
+            modalPasswordMessage.classList.add('hidden'); // Hide error message
+            modalPasswordInput.focus(); // Focus on password input
+        });
+
+        // Modal login button click
+        modalLoginButton.addEventListener('click', () => {
+            const password = modalPasswordInput.value;
+            if (password === 'dhani') { // Hardcoded password for demo
+                passwordModal.classList.add('hidden');
+                setEditMode(); // Enter edit mode
+            } else {
+                modalPasswordMessage.classList.remove('hidden');
+            }
+        });
+
+        // Modal cancel button click
+        modalCancelButton.addEventListener('click', () => {
+            passwordModal.classList.add('hidden');
+        });
+
+        // Save button click
+        saveButton.addEventListener('click', () => {
+            // Update currentProfileData from input fields
+            currentProfileData.photoUrl = profilePhotoUrlInput.value;
+            currentProfileData.name = profileNameInput.value;
+            currentProfileData.username = profileUsernameInput.value;
+            currentProfileData.bio = profileBioInput.value;
+
+            saveData(); // Save updated data
+            setDisplayMode(); // Switch back to display mode
+        });
+
+        // Cancel button click
+        cancelButton.addEventListener('click', () => {
+            loadData(); // Revert to last saved data
+            setDisplayMode(); // Switch back to display mode
+        });
+
+        // Add New Link button click
+        addLinkButton.addEventListener('click', () => {
+            const text = newLinkText.value.trim();
+            const url = newLinkUrl.value.trim();
+            const svg = newLinkSvg.value.trim();
+
+            if (text && url) {
+                currentLinks.push({ text, url, svg });
+                newLinkText.value = '';
+                newLinkUrl.value = '';
+                newLinkSvg.value = '';
+                renderLinksEditMode(); // Re-render links in edit mode to show new link
+            } else {
+                console.error("Teks dan URL tautan tidak boleh kosong.");
+            }
+        });
+
+        // Event listener for Export Data button
+        exportDataButton.addEventListener('click', () => {
+            const dataToExport = {
+                profileData: currentProfileData,
+                linksData: currentLinks
+            };
+            exportedDataOutput.value = JSON.stringify(dataToExport, null, 2); // Pretty print JSON
+            exportedDataOutput.classList.remove('hidden');
+            copyExportedDataButton.classList.remove('hidden');
+        });
+
+        // Event listener for Copy Exported Data button
+        copyExportedDataButton.addEventListener('click', () => {
+            exportedDataOutput.select();
+            document.execCommand('copy');
+            const originalText = copyExportedDataButton.textContent;
+            copyExportedDataButton.textContent = 'Disalin!';
+            setTimeout(() => {
+                copyExportedDataButton.textContent = originalText;
+            }, 1500);
+        });
+
+        // Event listener for Import Data button
+        importDataButton.addEventListener('click', () => {
+            const importText = importDataInput.value.trim();
+            if (!importText) {
+                importMessage.textContent = 'Mohon masukkan data JSON untuk diimpor.';
+                importMessage.classList.remove('hidden');
+                importMessage.classList.remove('text-green-400');
+                importMessage.classList.add('text-red-400');
+                return;
+            }
+
+            try {
+                const importedData = JSON.parse(importText);
+                if (importedData.profileData && importedData.linksData) {
+                    currentProfileData = importedData.profileData;
+                    currentLinks = importedData.linksData;
+                    saveData(); // Save to localStorage immediately after import
+                    renderProfileEditMode(); // Re-render in edit mode
+                    renderLinksEditMode();
+                    importMessage.textContent = 'Data berhasil diimpor!';
+                    importMessage.classList.remove('hidden', 'text-red-400');
+                    importMessage.classList.add('text-green-400');
+                } else {
+                    throw new Error("Struktur JSON tidak valid. Harap sertakan 'profileData' dan 'linksData'.");
+                }
+            } catch (e) {
+                console.error("Error importing data:", e);
+                importMessage.textContent = `Gagal mengimpor data: ${e.message || 'Format JSON tidak valid.'}`;
+                importMessage.classList.remove('hidden', 'text-green-400');
+                importMessage.classList.add('text-red-400');
+            }
+        });
+    </script>
 </body>
 </html>
